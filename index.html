@@ -3,346 +3,423 @@
 <head>
     <meta name="description" content="Easy Links: A fast and simple collection of important websites for Gram Panchayat operators, NREGA staff, Food & Civil Supplies officers, and other government service users. Access all frequently used portals in one click.">
     <meta name="keywords" content="Gram Panchayat links, NREGA links, Food and Civil Supplies links, government websites, Karnataka links, quick access links, Easy Links, operator links">
-    <meta name="google-site-verification" content="No2L3Qi1Y34oCNpRc55oE2WqOeLmZ_LeT2vm2HptxjA" />
+    <meta name="google-site-verification" content="No2L3Qi1Y34oCNpRc55oE2WqOeLmZ_LeT2vm2HptxjA" />    
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F1CS - Compact Dashboard</title>
+    <title>F1CS - Easy Links</title>
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/244245827?v=4">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --bg-color: #eef2f5;
-            --card-bg: #ffffff;
-            --text-sm: 0.85rem;
-        }
-
+        /* --- General Reset --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg-color);
-            color: var(--primary-color);
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 1. Purple Background like your screenshot */
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); 
+            color: #2c3e50;
+            min-height: 100vh; /* Ensures background covers full screen */
+            padding: 20px; /* Creates the outer margin on mobile */
             display: flex;
             flex-direction: column;
-            overflow: hidden; 
+            align-items: center; /* Centers the box horizontally */
+            justify-content: flex-start; /* Starts from top */
         }
 
-        /* Compact Header */
+        /* --- 2. The White Container Box --- */
+        .app-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 1400px; /* This creates the Left & Right margins on large screens */
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden; /* Clips content to corners */
+            display: flex;
+            flex-direction: column;
+            /* No fixed height allows it to shrink/extend automatically */
+        }
+
+        /* --- Header --- */
         .header {
             background: #2c3e50;
             color: white;
-            padding: 8px 20px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex-shrink: 0;
-            z-index: 10;
         }
 
-        .header h1 { font-size: 1.1rem; display: flex; align-items: center; gap: 8px; margin: 0; }
-        .header-contact { font-size: 0.8rem; display: flex; gap: 15px; opacity: 0.9; }
-        .header-contact i { margin-right: 4px; }
-        .header-contact a { color: white; text-decoration: none; }
+        .header h1 { font-size: 1.1rem; display: flex; align-items: center; margin: 0; width: 33%; }
+        .header h1 i { margin-right: 8px; }
+        
+        .header-center { width: 33%; text-align: center; }
+        .header-center h2 { font-size: 1.1rem; margin: 0; font-weight: 500; color: #ecf0f1; }
 
-        /* Compact Filter Bar */
+        .header-contact { font-size: 0.8rem; display: flex; justify-content: flex-end; width: 33%; }
+        .header-contact a { color: white; text-decoration: none; display: flex; align-items: center; margin-left: 15px; }
+        .header-contact a i { margin-right: 5px; }
+
+        /* --- Filter Bar --- */
         .filter-bar {
-            background: white;
-            padding: 8px 20px;
+            background: #f8f9fa;
+            padding: 10px 25px;
             border-bottom: 1px solid #ddd;
             display: flex;
-            gap: 15px;
             align-items: center;
             font-size: 0.85rem;
-            flex-shrink: 0;
         }
 
-        .filter-select {
-            padding: 4px 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            min-width: 120px;
-        }
+        .filter-label { margin-right: 15px; }
+        .filter-select { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.8rem; min-width: 120px; margin-right: 10px;}
+        .reset-btn { background: #e2e6ea; border: 1px solid #ccc; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        .reset-btn:hover { background: #dbe0e5; }
 
-        .reset-btn {
-            background: #f1f1f1;
-            border: 1px solid #ccc;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .reset-btn:hover { background: #e0e0e0; }
-
-        /* Main Scrollable Area */
+        /* --- Main Content --- */
         .main-content {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 15px;
+            padding: 25px;
+            /* Allow it to grow, but don't force scroll unless needed */
+            min-height: 200px; 
         }
 
-        /* Masonry Grid Layout */
+        /* Masonry Grid */
         .masonry-grid {
-            column-count: 4; /* Default to 4 columns */
-            column-gap: 15px;
+            -webkit-column-count: 4;
+            -moz-column-count: 4;
+            column-count: 4;
+            -webkit-column-gap: 20px;
+            -moz-column-gap: 20px;
+            column-gap: 20px;
+            width: 100%;
         }
 
-        /* Category Card */
+        /* --- Cards --- */
         .category-card {
-            background: var(--card-bg);
+            background: #ffffff;
             border-radius: 6px;
-            margin-bottom: 15px;
-            break-inside: avoid; /* Prevents card from splitting across columns */
+            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-top: 3px solid var(--group-color); /* Color coded top border */
-            overflow: hidden;
             border: 1px solid #e0e0e0;
             border-top-width: 4px;
+            border-top-style: solid;
+            display: inline-block; 
+            width: 100%;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .card-header {
-            padding: 8px 12px;
+            padding: 10px 15px;
             background: #f8f9fa;
             border-bottom: 1px solid #eee;
             font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--group-color);
+            font-size: 0.95rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .card-body {
-            padding: 8px;
-        }
+        .count-badge { font-size: 0.75rem; opacity: 0.8; background: rgba(0,0,0,0.1); padding: 2px 8px; border-radius: 10px; }
+        .card-body { padding: 10px; }
 
-        /* Compact Links */
+        /* --- Links --- */
         .compact-link {
             display: flex;
             justify-content: space-between;
-            align-items: center; /* Vertically center icon */
-            padding: 8px 10px; /* Slightly increased padding */
-            margin-bottom: 4px;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 5px;
             background: white;
             border: 1px solid #eee;
             border-radius: 4px;
             text-decoration: none;
             color: #333;
-            transition: all 0.2s;
             cursor: pointer;
+            transition: 0.2s;
         }
-
         .compact-link:last-child { margin-bottom: 0; }
-
-        .compact-link:hover {
-            background: var(--group-color);
-            color: white;
-            border-color: var(--group-color);
-            transform: translateX(2px);
-        }
-
-        /* TEXT FIX: Removed truncation, allowed wrapping */
-        .link-text {
-            font-size: 0.85rem;
-            font-weight: 500;
-            white-space: normal; /* Allows wrapping */
-            word-wrap: break-word;
-            line-height: 1.2;
-            padding-right: 10px; /* Space between text and arrow icon */
-        }
         
-        .link-desc {
-            display: block;
-            font-size: 0.7rem;
-            opacity: 0.7;
-            font-weight: normal;
-            margin-top: 2px;
+        /* Hover effects */
+        .compact-link:hover { color: white; border-color: transparent; }
+        
+        .link-content { width: 90%; }
+        .link-text { font-size: 0.9rem; font-weight: 500; word-wrap: break-word; line-height: 1.3; }
+        .link-desc { display: block; font-size: 0.75rem; opacity: 0.7; margin-top: 3px; color: inherit; }
+
+        /* --- Footer --- */
+        .footer {
+            background: #f1f5f9; /* Light grey footer background */
+            border-top: 1px solid #ddd;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .compact-link:hover .link-desc { opacity: 0.9; color: #eee; }
+        .footer-left { font-weight: 600; color: #2c3e50; display: flex; align-items: center; }
+        .footer-left i { margin-right: 8px; }
+        .footer-right { display: flex; }
+        .footer-right a { text-decoration: none; color: #2c3e50; display: flex; align-items: center; margin-left: 20px;}
+        .footer-right a:hover { color: #3498db; }
+        .footer-right i { margin-right: 5px; }
 
-        /* Loading & Error */
-        .loading { text-align: center; padding: 50px; color: #666; font-size: 0.9rem; }
-        .spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid #ddd; border-top-color: #333; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 10px; vertical-align: middle; }
+        /* Loading */
+        .loading { text-align: center; padding: 40px; width: 100%; color: #3498db; }
+        .spinner { display: inline-block; width: 25px; height: 25px; border: 3px solid #eee; border-top-color: #3498db; border-radius: 50%; margin-right: 10px; vertical-align: middle; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Responsive Breakpoints for Columns */
-        @media (max-width: 1400px) { .masonry-grid { column-count: 3; } }
-        @media (max-width: 1000px) { .masonry-grid { column-count: 2; } }
-        @media (max-width: 600px) { 
-            .masonry-grid { column-count: 1; } 
-            .header { flex-direction: column; gap: 5px; align-items: flex-start; }
-            .filter-bar { flex-wrap: wrap; }
+        /* --- Mobile Responsive --- */
+        @media (max-width: 1400px) { .masonry-grid { -webkit-column-count: 3; -moz-column-count: 3; column-count: 3; } }
+        @media (max-width: 1000px) { .masonry-grid { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2; } }
+        @media (max-width: 768px) {
+            body { padding: 10px; } /* Smaller margin on phones */
+            .masonry-grid { -webkit-column-count: 1; -moz-column-count: 1; column-count: 1; }
+            .header { flex-direction: column; gap: 10px; padding: 15px; text-align: center; }
+            .header h1, .header-center, .header-contact { width: 100%; justify-content: center; }
+            .filter-bar { flex-wrap: wrap; justify-content: center; }
+            .footer { flex-direction: column; gap: 10px; padding: 15px; }
+            .footer-right { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <h1><i class="fas fa-desktop"></i> F1 Computer Solutions</h1>
-        <div class="header-contact">
-            <a href="https://wa.me/918904110488"><i class="fab fa-whatsapp"></i> 8904110488</a>
-            <a href="mailto:f1csmysuru@gmail.com"><i class="fas fa-envelope"></i> f1csmysuru@gmail.com</a>
-        </div>
-    </header>
-
-    <div class="filter-bar">
-        <span><i class="fas fa-filter"></i> Filters:</span>
-        <select id="category-filter" class="filter-select">
-            <option value="all">All Categories</option>
-        </select>
-        <select id="desc-filter" class="filter-select">
-            <option value="all">All Descriptions</option>
-        </select>
-        <button class="reset-btn" onclick="dashboard.resetFilters()">Reset</button>
-    </div>
-
-    <main class="main-content">
-        <div id="loading" class="loading"><div class="spinner"></div>Loading data...</div>
+    <div class="app-container">
         
-        <div id="dashboard" class="masonry-grid" style="display: none;">
+        <header class="header">
+            <h1><i class="fas fa-desktop"></i> F1 Computer Solutions</h1>
+            <div class="header-center">
+                <h2>Easy Direct Links</h2>
             </div>
-    </main>
+            <div class="header-contact">
+                <a href="https://wa.me/918904110488"><i class="fab fa-whatsapp"></i> 8904110488</a>
+            </div>
+        </header>
 
-    <script>
-        class Dashboard {
-            constructor() {
-                this.sheetId = '1qLXO6bIsAEleMgW4TtsRudN0IV8qjd5OjGFEGDqoRGM';
-                this.container = document.getElementById('dashboard');
-                this.loadingEl = document.getElementById('loading');
-                this.allData = [];
-                
-                // Defined Colors
-                this.colors = {
-                    'NREGA': '#d32f2f',       /* Red */
-                    'Eswathu': '#7b1fa2',     /* Purple */
-                    'Panchatantra': '#f57c00', /* Orange */
-                    'Food': '#388e3c',        /* Green */
-                    'Egramswaraj': '#fbc02d', /* Yellow */
-                    'Tools': '#455a64',       /* Blue Grey */
-                    'Ration': '#00796b',      /* Teal */
-                    'Default': '#1976d2'      /* Blue */
-                };
-            }
+        <div class="filter-bar">
+            <span class="filter-label"><i class="fas fa-filter"></i> Filters:</span>
+            <select id="category-filter" class="filter-select"><option value="all">All Categories</option></select>
+            <select id="desc-filter" class="filter-select"><option value="all">All Descriptions</option></select>
+            <button class="reset-btn" onclick="resetFilters()">Reset</button>
+        </div>
 
-            init() {
-                this.loadData();
-                document.getElementById('category-filter').addEventListener('change', () => this.filter());
-                document.getElementById('desc-filter').addEventListener('change', () => this.filter());
-            }
+        <main class="main-content">
+            <div id="loading" class="loading"><div class="spinner"></div>Loading links...</div>
+            <div id="dashboard" class="masonry-grid" style="display: none;"></div>
+        </main>
 
-            async loadData() {
-                try {
-                    const response = await fetch(`https://docs.google.com/spreadsheets/d/${this.sheetId}/export?format=csv&gid=0`);
-                    const text = await response.text();
-                    this.allData = this.parseCSV(text);
-                    this.populateFilters();
-                    this.render(this.allData);
-                    this.loadingEl.style.display = 'none';
-                    this.container.style.display = 'block';
-                } catch (e) {
-                    this.loadingEl.innerHTML = 'Error loading data. Check internet connection.';
-                    console.error(e);
+        <footer class="footer">
+            <div class="footer-left">
+                <i class="fas fa-headset"></i> Contact for Update & Support
+            </div>
+            <div class="footer-right">
+                <a href="https://wa.me/918904110488">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i> 8904110488
+                </a>
+                <a href="mailto:f1csmysuru@gmail.com">
+                    <i class="fas fa-envelope" style="color: #e74c3c;"></i> f1csmysuru@gmail.com
+                </a>
+                <!-- hitwebcounter Code START -->
+                <a href="https://www.hitwebcounter.com/" target="_blank">
+                <img src="https://hitwebcounter.com/counter/counter.php?page=21460753&style=0038&nbdigits=5&type=page&initCount=0" title="Free Tools" Alt="Free Tools"   border="0" /></a>
+            </div>
+        </footer>
+
+    </div> <script>
+        /* --- Script (IE Compatible) --- */
+        var sheetId = '1qLXO6bIsAEleMgW4TtsRudN0IV8qjd5OjGFEGDqoRGM';
+        var container = document.getElementById('dashboard');
+        var loadingEl = document.getElementById('loading');
+        var allData = [];
+        
+        var colors = {
+            'NREGA': '#d32f2f', 
+            'Eswathu': '#7b1fa2', 
+            'Panchatantra': '#f57c00',
+            'Food': '#388e3c', 
+            'Egramswaraj': '#fbc02d', 
+            'Tools': '#455a64',
+            'Ration': '#00796b', 
+            'Treasuries': '#1976d2',
+            'Default': '#1976d2'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            document.getElementById('category-filter').addEventListener('change', filterData);
+            document.getElementById('desc-filter').addEventListener('change', filterData);
+        });
+
+        function loadData() {
+            var xhr = new XMLHttpRequest();
+            var url = 'https://docs.google.com/spreadsheets/d/' + sheetId + '/export?format=csv&gid=0';
+            
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        allData = parseCSV(xhr.responseText);
+                        populateFilters();
+                        render(allData);
+                        loadingEl.style.display = 'none';
+                        container.style.display = 'block';
+                    } else {
+                        loadingEl.innerHTML = 'Error loading data.';
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function parseCSV(text) {
+            var lines = text.split('\n');
+            var result = [];
+            for (var i = 1; i < lines.length; i++) {
+                var line = lines[i].trim();
+                if (line) {
+                    var cols = line.split(',');
+                    for (var j = 0; j < cols.length; j++) {
+                        cols[j] = cols[j] ? cols[j].replace(/"/g, '').trim() : '';
+                    }
+                    result.push({
+                        title: cols[0],
+                        url: cols[1],
+                        desc: cols[2],
+                        category: cols[3] || 'Other'
+                    });
                 }
             }
+            return result;
+        }
 
-            parseCSV(text) {
-                const lines = text.split('\n').filter(l => l.trim());
-                return lines.slice(1).map(line => {
-                    const [title, url, desc, category] = line.split(',').map(c => c ? c.trim().replace(/"/g, '') : '');
-                    return { title, url, desc, category: category || 'Other' };
-                });
+        function populateFilters() {
+            var cats = [];
+            var descs = [];
+            for (var i = 0; i < allData.length; i++) {
+                if (cats.indexOf(allData[i].category) === -1) cats.push(allData[i].category);
+                if (allData[i].desc && descs.indexOf(allData[i].desc) === -1) descs.push(allData[i].desc);
             }
+            cats.sort();
+            descs.sort();
 
-            populateFilters() {
-                const cats = [...new Set(this.allData.map(d => d.category))].sort();
-                const descs = [...new Set(this.allData.map(d => d.desc))].filter(d => d).sort();
-                
-                const catSelect = document.getElementById('category-filter');
-                const descSelect = document.getElementById('desc-filter');
+            var catSelect = document.getElementById('category-filter');
+            var descSelect = document.getElementById('desc-filter');
 
-                cats.forEach(c => catSelect.add(new Option(c, c)));
-                descs.forEach(d => descSelect.add(new Option(d, d)));
+            for (var k = 0; k < cats.length; k++) {
+                var opt = document.createElement('option');
+                opt.value = cats[k];
+                opt.innerHTML = cats[k];
+                catSelect.appendChild(opt);
             }
-
-            filter() {
-                const catVal = document.getElementById('category-filter').value;
-                const descVal = document.getElementById('desc-filter').value;
-
-                const filtered = this.allData.filter(item => {
-                    return (catVal === 'all' || item.category === catVal) &&
-                           (descVal === 'all' || item.desc === descVal);
-                });
-                this.render(filtered);
-            }
-
-            resetFilters() {
-                document.getElementById('category-filter').value = 'all';
-                document.getElementById('desc-filter').value = 'all';
-                this.render(this.allData);
-            }
-
-            getColor(category) {
-                const key = Object.keys(this.colors).find(k => category.includes(k)) || 'Default';
-                return this.colors[key];
-            }
-
-            render(data) {
-                this.container.innerHTML = '';
-                
-                // Group by Category
-                const grouped = data.reduce((acc, item) => {
-                    (acc[item.category] = acc[item.category] || []).push(item);
-                    return acc;
-                }, {});
-
-                // Sort keys to keep order consistent
-                Object.keys(grouped).sort().forEach(cat => {
-                    const groupColor = this.getColor(cat);
-                    const card = document.createElement('div');
-                    card.className = 'category-card';
-                    card.style.setProperty('--group-color', groupColor);
-                    card.style.borderColor = groupColor; // Sets top border color
-
-                    let linksHtml = grouped[cat].map(link => `
-                        <div class="compact-link" onclick="window.open('${this.fixUrl(link.url)}', '_blank')">
-                            <div>
-                                <div class="link-text">${link.title}</div>
-                                ${link.desc ? `<span class="link-desc">${link.desc}</span>` : ''}
-                            </div>
-                            <i class="fas fa-external-link-alt" style="font-size: 0.7rem; opacity: 0.5;"></i>
-                        </div>
-                    `).join('');
-
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <span>${cat}</span>
-                            <span style="font-size:0.7rem; opacity:0.8; background:rgba(0,0,0,0.1); padding:2px 6px; border-radius:10px;">${grouped[cat].length}</span>
-                        </div>
-                        <div class="card-body">
-                            ${linksHtml}
-                        </div>
-                    `;
-                    this.container.appendChild(card);
-                });
-
-                if (data.length === 0) {
-                    this.container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 20px;">No links found.</div>';
-                }
-            }
-
-            fixUrl(url) {
-                return url.startsWith('http') ? url : 'https://' + url;
+            for (var m = 0; m < descs.length; m++) {
+                var opt2 = document.createElement('option');
+                opt2.value = descs[m];
+                opt2.innerHTML = descs[m];
+                descSelect.appendChild(opt2);
             }
         }
 
-        const dashboard = new Dashboard();
-        document.addEventListener('DOMContentLoaded', () => dashboard.init());
+        function filterData() {
+            var catVal = document.getElementById('category-filter').value;
+            var descVal = document.getElementById('desc-filter').value;
+
+            var filtered = [];
+            for (var i = 0; i < allData.length; i++) {
+                var item = allData[i];
+                var matchCat = (catVal === 'all' || item.category === catVal);
+                var matchDesc = (descVal === 'all' || item.desc === descVal);
+                if (matchCat && matchDesc) filtered.push(item);
+            }
+            render(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('category-filter').value = 'all';
+            document.getElementById('desc-filter').value = 'all';
+            render(allData);
+        }
+
+        function getColor(category) {
+            for (var key in colors) {
+                if (category.indexOf(key) !== -1) return colors[key];
+            }
+            return colors['Default'];
+        }
+
+        function render(data) {
+            container.innerHTML = '';
+            
+            if (data.length === 0) {
+                container.innerHTML = '<div style="width:100%; text-align:center; padding:20px;">No links found.</div>';
+                return;
+            }
+
+            var grouped = {};
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (!grouped[item.category]) grouped[item.category] = [];
+                grouped[item.category].push(item);
+            }
+
+            var keys = [];
+            for (var k in grouped) { if (grouped.hasOwnProperty(k)) keys.push(k); }
+            keys.sort();
+
+            for (var j = 0; j < keys.length; j++) {
+                var cat = keys[j];
+                var groupColor = getColor(cat);
+                var links = grouped[cat];
+
+                var card = document.createElement('div');
+                card.className = 'category-card';
+                card.style.borderTopColor = groupColor; 
+
+                var headerHtml = '<div class="card-header" style="color:' + groupColor + '">';
+                headerHtml += '<span>' + cat + '</span>';
+                headerHtml += '<span class="count-badge">' + links.length + '</span>';
+                headerHtml += '</div>';
+
+                var bodyHtml = '<div class="card-body">';
+                for (var l = 0; l < links.length; l++) {
+                    var link = links[l];
+                    var fixedUrl = (link.url.indexOf('http') === 0) ? link.url : 'https://' + link.url;
+                    
+                    bodyHtml += '<a href="' + fixedUrl + '" target="_blank" class="compact-link" style="text-decoration:none;">';
+                    bodyHtml += '<div class="link-content">';
+                    bodyHtml += '<div class="link-text">' + link.title + '</div>';
+                    if (link.desc) bodyHtml += '<span class="link-desc">' + link.desc + '</span>';
+                    bodyHtml += '</div>';
+                    bodyHtml += '<i class="fas fa-external-link-alt" style="font-size: 0.7rem; opacity: 0.5;"></i>';
+                    bodyHtml += '</a>';
+                }
+                bodyHtml += '</div>';
+
+                card.innerHTML = headerHtml + bodyHtml;
+                
+                // Add Hover Effect for IE
+                var linkElements = card.getElementsByClassName('compact-link');
+                for(var h=0; h<linkElements.length; h++) {
+                    (function(el) {
+                        el.onmouseenter = function() { 
+                            this.style.backgroundColor = groupColor; 
+                            this.style.color = 'white';
+                            var d = this.getElementsByClassName('link-desc')[0];
+                            if(d) d.style.color = 'white';
+                        };
+                        el.onmouseleave = function() { 
+                            this.style.backgroundColor = 'white'; 
+                            this.style.color = '#333';
+                            var d = this.getElementsByClassName('link-desc')[0];
+                            if(d) d.style.color = 'inherit';
+                        };
+                    })(linkElements[h]);
+                }
+                container.appendChild(card);
+            }
+        }
     </script>
 </body>
-
 </html>
-
-
