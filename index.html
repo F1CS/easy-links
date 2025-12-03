@@ -366,7 +366,14 @@
 
             var keys = [];
             for (var k in grouped) { if (grouped.hasOwnProperty(k)) keys.push(k); }
-            keys.sort();
+            keys.sort(function(a, b) {
+                var numA = parseInt(a, 10);
+                var numB = parseInt(b, 10);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return numA - numB;
+                }
+                return a.localeCompare(b);
+            });
 
             for (var j = 0; j < keys.length; j++) {
                 var cat = keys[j];
@@ -423,3 +430,4 @@
     </script>
 </body>
 </html>
+
