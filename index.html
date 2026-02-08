@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="Easy Links: A fast and simple collection of important websites for Gram Panchayat operators, NREGA staff, Food & Civil Supplies officers, and other government service users. Access all frequently used portals in one click.">
+    <meta name="keywords" content="Gram Panchayat links, NREGA links, Food and Civil Supplies links, government websites, Karnataka links, quick access links, Easy Links, operator links">
+    <meta name="google-site-verification" content="No2L3Qi1Y34oCNpRc55oE2WqOeLmZ_LeT2vm2HptxjA" />    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1CS - Easy Links</title>
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/244245827?v=4">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- ULTRA COMPACT CSS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); 
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 10px; /* Reduced outer padding */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .app-container {
+            background: #ffffff;
+            width: 98%; /* Uses almost full width */
+            max-width: 1800px; /* Allows wider spread on 2K screens */
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* No fixed height, let it fit content */
+        }
+
+        /* --- Compact Header --- */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px; /* Thinner header */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 { font-size: 1rem; display: flex; align-items: center; margin: 0; width: 33%; }
+        .header-center h2 { font-size: 1rem; margin: 0; font-weight: 500; color: #ecf0f1; }
+        .header-contact { font-size: 0.8rem; display: flex; justify-content: flex-end; width: 33%; }
+        .header-contact a { color: white; text-decoration: none; display: flex; align-items: center; margin-left: 15px; }
+
+        /* --- Compact Filters --- */
+        .filter-bar {
+            background: #f8f9fa;
+            padding: 6px 15px; /* Thinner filter bar */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .filter-select { padding: 2px 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.75rem; min-width: 100px; margin-right: 10px;}
+        .reset-btn { padding: 2px 8px; font-size: 0.75rem; cursor: pointer; }
+
+        /* --- Main Grid Area --- */
+        .main-content {
+            padding: 15px; /* Reduced padding */
+            flex-grow: 1;
+        }
+
+        .masonry-grid {
+            -webkit-column-count: 5; /* 5 Columns for 2K screens */
+            -moz-column-count: 5;
+            column-count: 5;
+            -webkit-column-gap: 10px; /* Tighter gap */
+            -moz-column-gap: 10px;
+            column-gap: 10px;
+            width: 100%;
+        }
+
+        /* --- Compact Cards --- */
+        .category-card {
+            background: #ffffff;
+            border-radius: 6px;
+            margin-bottom: 10px; /* Less space between cards */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            border-top-width: 3px;
+            border-top-style: solid;
+            display: inline-block; 
+            width: 100%;
+            break-inside: avoid;
+        }
+
+        .card-header {
+            padding: 6px 10px; /* Thinner card header */
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            font-size: 0.85rem; /* Smaller font */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .count-badge { font-size: 0.7rem; padding: 1px 6px; border-radius: 8px; background: rgba(0,0,0,0.05); }
+        .card-body { padding: 6px; }
+
+        /* --- Ultra Compact Links --- */
+        .compact-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 8px; /* Very tight padding */
+            margin-bottom: 3px;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 3px;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+            transition: 0.2s;
+            min-height: 28px; /* Force small height */
+        }
+        .compact-link:last-child { margin-bottom: 0; }
+        .compact-link:hover { color: white; border-color: transparent; }
+        
+        .link-content { width: 92%; }
+        .link-text { font-size: 0.8rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .link-desc { display: none; } /* OPTIONAL: Hides description to save huge space. Remove this line if you want descriptions back */
+
+        /* --- Footer --- */
+        .footer {
+            background: #f1f5f9;
+            border-top: 1px solid #ddd;
+            padding: 8px 15px; /* Thinner footer */
+            text-align: center;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-left i { margin-right: 5px; }
+        .footer-right a { margin-left: 15px; text-decoration: none; color: #333; }
+
+        /* Loading */
+        .loading { text-align: center; padding: 20px; color: #3498db; font-size: 0.9rem; }
+        .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #eee; border-top-color: #3498db; border-radius: 50%; margin-right: 8px; vertical-align: middle; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* --- Responsive Adjustments --- */
+        /* Laptop (1366x768) - 4 Columns */
+        @media (max-width: 1400px) { 
+            .masonry-grid { column-count: 4; } 
+        }
+        /* Tablet - 3 Columns */
+        @media (max-width: 1100px) { 
+            .masonry-grid { column-count: 3; } 
+        }
+        /* Small Tablet - 2 Columns */
+        @media (max-width: 800px) { 
+            .masonry-grid { column-count: 2; } 
+            .header h1 { font-size: 0.9rem; }
+        }
+        /* Phone - 1 Column */
+        @media (max-width: 600px) {
+            body { padding: 5px; }
+            .masonry-grid { column-count: 1; }
+            .header { flex-direction: column; gap: 5px; text-align: center; padding: 10px; }
+            .header h1, .header-center, .header-contact { width: 100%; justify-content: center; }
+            .filter-bar { flex-wrap: wrap; justify-content: center; gap: 5px; }
+            .footer { flex-direction: column; gap: 5px; }
+            .footer-right { justify-content: center; }
+            /* Show descriptions on mobile only where space is cheap? Uncomment below to show */
+            /* .link-desc { display: block; font-size: 0.7rem; } */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="header">
+            <h1><i class="fas fa-desktop"></i> F1 Computer Solutions</h1>
+            <div class="header-center"><h2>Easy Direct Links</h2></div>
+            <div class="header-contact">
+                <a href="https://wa.me/918904110488"><i class="fab fa-whatsapp"></i> 8904110488</a>
+            </div>
+        </header>
+
+        <div class="filter-bar">
+            <span style="margin-right:10px"><i class="fas fa-filter"></i> Filters:</span>
+            <select id="category-filter" class="filter-select"><option value="all">All Categories</option></select>
+            <select id="desc-filter" class="filter-select"><option value="all">All Descriptions</option></select>
+            <button class="reset-btn" onclick="resetFilters()">Reset</button>
+        </div>
+
+        <main class="main-content">
+            <div id="loading" class="loading"><div class="spinner"></div>Loading...</div>
+            <div id="dashboard" class="masonry-grid" style="display: none;"></div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-left"><i class="fas fa-headset"></i> Contact for Updates & Support</div>
+            <div class="footer-right">
+                <a href="https://wa.me/918904110488"><i class="fab fa-whatsapp" style="color:#25D366;"></i> 8904110488</a>
+                <a href="mailto:f1csmysuru@gmail.com"><i class="fas fa-envelope" style="color:#e74c3c;"></i> f1csmysuru@gmail.com</a>
+                <div style="margin-left: 15px; display: inline-flex;">
+                    </div>
+                <!-- hitwebcounter Code START -->
+                <a href="https://www.hitwebcounter.com/" target="_blank">
+                <img src="https://hitwebcounter.com/counter/counter.php?page=21460753&style=0038&nbdigits=5&type=page&initCount=0" title="Free Tools" Alt="Free Tools"   border="0" /></a>    
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        /* --- Script (Sorting Fixed + IE Compatible) --- */
+        var sheetId = '1qLXO6bIsAEleMgW4TtsRudN0IV8qjd5OjGFEGDqoRGM';
+        var container = document.getElementById('dashboard');
+        var loadingEl = document.getElementById('loading');
+        var allData = [];
+        
+        var colors = {
+            'NREGA': '#d32f2f', 'Eswathu': '#7b1fa2', 'Panchatantra': '#f57c00',
+            'Food': '#388e3c', 'Egramswaraj': '#fbc02d', 'Tools': '#455a64',
+            'Ration': '#00796b', 'Treasuries': '#1976d2', 'Default': '#1976d2'
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            document.getElementById('category-filter').addEventListener('change', filterData);
+            document.getElementById('desc-filter').addEventListener('change', filterData);
+        });
+
+        function loadData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://docs.google.com/spreadsheets/d/' + sheetId + '/export?format=csv&gid=0', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    allData = parseCSV(xhr.responseText);
+                    populateFilters();
+                    render(allData);
+                    loadingEl.style.display = 'none';
+                    container.style.display = 'block';
+                }
+            };
+            xhr.send();
+        }
+
+        function parseCSV(text) {
+            var lines = text.split('\n');
+            var result = [];
+            for (var i = 1; i < lines.length; i++) {
+                var line = lines[i].trim();
+                if (line) {
+                    var cols = line.split(',');
+                    for (var j = 0; j < cols.length; j++) cols[j] = cols[j] ? cols[j].replace(/"/g, '').trim() : '';
+                    result.push({ title: cols[0], url: cols[1], desc: cols[2], category: cols[3] || 'Other' });
+                }
+            }
+            return result;
+        }
+
+        function populateFilters() {
+            var cats = [], descs = [];
+            for (var i = 0; i < allData.length; i++) {
+                if (cats.indexOf(allData[i].category) === -1) cats.push(allData[i].category);
+                if (allData[i].desc && descs.indexOf(allData[i].desc) === -1) descs.push(allData[i].desc);
+            }
+            cats.sort(sortAlphaNum); descs.sort();
+
+            var catSelect = document.getElementById('category-filter');
+            var descSelect = document.getElementById('desc-filter');
+            for (var k = 0; k < cats.length; k++) {
+                var opt = document.createElement('option');
+                opt.value = cats[k]; opt.innerHTML = cats[k]; catSelect.appendChild(opt);
+            }
+            for (var m = 0; m < descs.length; m++) {
+                var opt2 = document.createElement('option');
+                opt2.value = descs[m]; opt2.innerHTML = descs[m]; descSelect.appendChild(opt2);
+            }
+        }
+
+        function filterData() {
+            var catVal = document.getElementById('category-filter').value;
+            var descVal = document.getElementById('desc-filter').value;
+            var filtered = [];
+            for (var i = 0; i < allData.length; i++) {
+                if ((catVal === 'all' || allData[i].category === catVal) && 
+                    (descVal === 'all' || allData[i].desc === descVal)) filtered.push(allData[i]);
+            }
+            render(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('category-filter').value = 'all';
+            document.getElementById('desc-filter').value = 'all';
+            render(allData);
+        }
+
+        function getColor(category) {
+            for (var key in colors) if (category.indexOf(key) !== -1) return colors[key];
+            return colors['Default'];
+        }
+
+        /* --- Sorting Function (Numeric Aware) --- */
+        function sortAlphaNum(a, b) {
+            var numA = parseInt(a, 10);
+            var numB = parseInt(b, 10);
+            if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+            return a.localeCompare(b);
+        }
+
+        function render(data) {
+            container.innerHTML = '';
+            if (data.length === 0) { container.innerHTML = '<div style="width:100%; text-align:center;">No links found.</div>'; return; }
+
+            var grouped = {};
+            for (var i = 0; i < data.length; i++) {
+                if (!grouped[data[i].category]) grouped[data[i].category] = [];
+                grouped[data[i].category].push(data[i]);
+            }
+
+            var keys = [];
+            for (var k in grouped) keys.push(k);
+            keys.sort(sortAlphaNum);
+
+            for (var j = 0; j < keys.length; j++) {
+                var cat = keys[j];
+                var groupColor = getColor(cat);
+                var links = grouped[cat];
+
+                var card = document.createElement('div');
+                card.className = 'category-card';
+                card.style.borderTopColor = groupColor; 
+
+                var headerHtml = '<div class="card-header" style="color:' + groupColor + '">';
+                headerHtml += '<span>' + cat + '</span> <span class="count-badge">' + links.length + '</span></div>';
+
+                var bodyHtml = '<div class="card-body">';
+                for (var l = 0; l < links.length; l++) {
+                    var link = links[l];
+                    var fixedUrl = (link.url.indexOf('http') === 0) ? link.url : 'https://' + link.url;
+                    
+                    bodyHtml += '<a href="' + fixedUrl + '" target="_blank" class="compact-link">';
+                    bodyHtml += '<div class="link-content"><div class="link-text">' + link.title + '</div>';
+                    // Description is hidden via CSS (.link-desc { display: none; }) for maximum compactness
+                    // Remove that CSS line if you want descriptions back
+                    if (link.desc) bodyHtml += '<span class="link-desc">' + link.desc + '</span>';
+                    bodyHtml += '</div><i class="fas fa-external-link-alt" style="font-size: 0.6rem; opacity: 0.5;"></i></a>';
+                }
+                bodyHtml += '</div>';
+                card.innerHTML = headerHtml + bodyHtml;
+                
+                // Hover Effect
+                var linkElements = card.getElementsByClassName('compact-link');
+                for(var h=0; h<linkElements.length; h++) {
+                    (function(el) {
+                        el.onmouseenter = function() { 
+                            this.style.backgroundColor = groupColor; 
+                            this.style.color = 'white';
+                        };
+                        el.onmouseleave = function() { 
+                            this.style.backgroundColor = 'white'; 
+                            this.style.color = '#333';
+                        };
+                    })(linkElements[h]);
+                }
+                container.appendChild(card);
+            }
+        }
+    </script>
+</body>
+</html>
